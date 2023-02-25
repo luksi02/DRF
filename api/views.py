@@ -1,6 +1,6 @@
 from wsgiref.util import FileWrapper
 from api.custom_renderers import JPEGRenderer, PNGRenderer
-from rest_framework import generics, mixins, permissions, authentication
+from rest_framework import generics, mixins, permissions, authentication, request
 from images.models import Images
 from .serializers import ImagesSerializer
 from rest_framework.response import Response
@@ -18,7 +18,7 @@ from .permissions import Basic, Premium, Enterprise, Admin
 class ImageAPIView(generics.RetrieveAPIView):
 
     queryset = Images.objects.filter(id=1)
-    renderer_classes = [JPEGRenderer]
+    renderer_classes = [JPEGRenderer, PNGRenderer]
     authentication_classes = [authentication.SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
@@ -29,14 +29,12 @@ class ImageAPIView(generics.RetrieveAPIView):
         return Response(data, content_type='image/jpg')
 
 class ImagesListAPIView(generics.ListCreateAPIView):
-
-    """queryset = Images.objects.filter(id=1)
-    renderer_classes = [JPEGRenderer]
-    authentication_classes = [authentication.SessionAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    queryset = Images.objects.all()
+    serializer_class = ImagesSerializer
 
     def get(self, request, *args, **kwargs):
-        renderer_classes = [JPEGRenderer]
-        queryset = Images.objects.get(id=self.kwargs['id']).image
+
+        queryset = Images.objects.filter(author=request.user)
         data = queryset
-        return Response(data, content_type='image/jpg')"""
+        return Response(data, content_type='image/jpg')
+

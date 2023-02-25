@@ -6,7 +6,7 @@ class ImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Images
-        fields = ('id', 'image')
+        fields = ('id', 'image', 'media_url')
 
 
 """ class ImagesSerializer(serializers.ModelSerializer):

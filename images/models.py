@@ -33,3 +33,6 @@ class Images(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.PROTECT, related_name='author')
     status = models.CharField(max_length=11, choices=options, default='active')
+
+    def media_url(self):
+        return self.media_url
