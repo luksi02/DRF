@@ -31,10 +31,22 @@ class ImageAPIView(generics.RetrieveAPIView):
 class ImagesListAPIView(generics.ListCreateAPIView):
     queryset = Images.objects.all()
     serializer_class = ImagesSerializer
+    renderer_classes = [JPEGRenderer, PNGRenderer]
 
     def get(self, request, *args, **kwargs):
 
-        queryset = Images.objects.filter(author=request.user)
+        queryset = Images.objects.filter(author=request.user.id)
         data = queryset
         return Response(data, content_type='image/jpg')
 
+
+class ImagesListAPIView2(APIView):
+    queryset = Images.objects.all()
+    serializer_class = ImagesSerializer
+    renderer_classes = [JPEGRenderer, PNGRenderer]
+
+    def get(self, request, *args, **kwargs):
+
+        queryset = Images.objects.filter(author=request.user.id)
+        data = queryset
+        return Response(data, content_type='image/jpg')

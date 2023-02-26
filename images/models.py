@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 
 def user_directory_path(instance, filename):
-    return 'images/{0}/'.format(filename)
+    return 'images'.format(filename)
 
 
 class Category(models.Model):
@@ -27,7 +27,7 @@ class Images(models.Model):
     title = models.CharField(max_length=250)
     alt = models.TextField(null=True)
     image = models.ImageField(
-        upload_to=user_directory_path, default='posts/default.jpg')
+        upload_to=user_directory_path, default='')
     slug = models.SlugField(max_length=250, unique_for_date='created')
     created = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(
