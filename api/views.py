@@ -1,3 +1,4 @@
+import json
 from wsgiref.util import FileWrapper
 from api.custom_renderers import JPEGRenderer, PNGRenderer
 from rest_framework import generics, mixins, permissions, authentication, request
@@ -13,6 +14,7 @@ from rest_framework.renderers import StaticHTMLRenderer
 from django.http import HttpResponse
 from PIL import Image
 from .permissions import Basic, Premium, Enterprise, Admin
+from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 
 
 class ImageAPIView(generics.RetrieveAPIView):
@@ -50,3 +52,17 @@ class ImagesListAPIView2(APIView):
         queryset = Images.objects.filter(author=request.user.id)
         data = queryset
         return Response(data, content_type='image/jpg')
+
+
+class ImageUploadView(generics.ListCreateAPIView):
+    queryset = Images.objects.all()
+    serializer_class = ImagesSerializer
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request, *args, **kwargs):
+        file = request.data['file']
+        author = request.user
+        image = Images.objects.create(image=file, author=author)
+        return HttpResponse(json.dumps({'message': "Uploaded"}), status=200)
+
+

@@ -9,15 +9,7 @@ class ImagesSerializer(serializers.ModelSerializer):
         fields = ('id', 'image', 'media_url')
 
 
-""" class ImagesSerializer(serializers.ModelSerializer):
-
-    image_url = serializers.SerializerMethodField('get_image_url')
-
-    class Meta:
-        model = Images
-        fields = ('id',
-                  'image',
-                  'image_url')
-
-    def get_image_url(self, obj):
-        return obj.image.url """
+# class ImageUploadSerializer(serializers.HyperlinkedModelSerializer):
+#
+#     class Meta:
+#         model = Images

@@ -36,3 +36,5 @@ class Images(models.Model):
 
     def media_url(self):
         return self.media_url
+
+
