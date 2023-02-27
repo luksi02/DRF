@@ -1,5 +1,7 @@
 # DRF_Image_API
 
+to run the project, just download repository and run project by 'python3 manage.py runserver' from project directory.
+
 # Goals of this project:
 
 Using Django REST Framework, write an API that allows any user to upload an image in PNG or JPG format.
