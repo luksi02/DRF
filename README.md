@@ -40,11 +40,13 @@ apart from the builtin tiers, admins should be able to create arbitrary tiers wi
   ability to generate expiring links
   admin UI should be done via django-admin
   there should be no custom user UI (just browsable API from Django Rest Framework)
+#to be implemented
 
 remember about:
   tests
   validation
   performance considerations (assume there can be a lot of images and the API is frequently accessed)
+
 #to be implemented in future!
   
  
