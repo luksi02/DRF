@@ -23,7 +23,7 @@ class Images(models.Model):
         ('deactivated', 'Deactivated'),
     )
 
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, default=1)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
     title = models.CharField(max_length=250)
     alt = models.TextField(null=True)
     image = models.ImageField(
@@ -31,7 +31,7 @@ class Images(models.Model):
     slug = models.SlugField(max_length=250, unique_for_date='created')
     created = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name='author')
+        User, on_delete=models.CASCADE, related_name='author')
     status = models.CharField(max_length=11, choices=options, default='active')
 
     def media_url(self):
